@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-button',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './button.component.html',
   styleUrl: './button.component.css'
 })
 export class ButtonComponent {
-
+@Input() isSave: boolean = false;
+@Input() isEdit: boolean = false;
+@Input() isUpdate: boolean = false;
 }

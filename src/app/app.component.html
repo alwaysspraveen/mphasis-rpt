@@ -1,11 +1,13 @@
 <div class="p-4 h-full w-full">
     <app-header></app-header>
     <app-search></app-search>
-    <div class="flex w-full gap-6 pt-2 h-full">
+    <div class="flex flex-row w-full gap-6 pt-2 h-full max-sm:flex-col">
         <app-form class="w-full h-full"></app-form>
         <app-monthly-contrib class="w-full"></app-monthly-contrib>
     </div>
     <div class="flex justify-center pt-[10px] pb-[10px]">
-        <app-button></app-button>
+        <app-button [isSave]="true" [isEdit]="false" [isUpdate]="false" class="p-1"></app-button>
     </div>
 </div>
+
+<!-- <app-created-goal></app-created-goal> -->

@@ -1,1 +1,3 @@
-<button>Save</button>
+<button *ngIf="isSave" class="w-[220px] h-[40px] bg-[#4E4EE0] rounded-[10px] text-white">Save</button>
+<button *ngIf="isEdit" class="w-[220px] h-[40px] bg-[#E0814E] rounded-[10px] text-white">Edit</button>
+<button *ngIf="isUpdate" class="w-[220px] h-[40px] bg-[#4E4EE0] rounded-[10px] text-white">Save Update</button>
