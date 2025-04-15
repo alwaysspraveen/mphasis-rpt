@@ -1,0 +1,14 @@
+<div *ngIf="onTrack" class="flex flex-col bg-[#E5FCED] w-full rounded-[16px] p-[16px] gap-4">
+    <div class="flex gap-2 items-center">
+        <img src="images/up.png" alt="logo" />
+        <p class="font-semibold text-[16px] text-[#363636]">Monthly Adjustment Needed</p>
+    </div>
+    <p class="text-[20px] text-[#20A247] font-bold">You're on track to meet your retirement goal</p>
+</div>
+<div *ngIf="!onTrack" class="flex flex-col bg-[#E5FCED] w-full rounded-[16px] p-[16px] gap-4">
+    <div class="flex gap-2 items-center">
+        <img src="images/down.png" alt="logo" />
+        <p class="font-semibold text-[16px] text-[#363636]">Monthly Adjustment Needed</p>
+    </div>
+    <p class="text-[20px] text-[#E63F3F] font-bold">You need to adjust your monthly contribution to meet your retirement goal</p>
+</div>
