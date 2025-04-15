@@ -1,72 +1,95 @@
-<div class="flex flex-col w-fit gap-1.5">
+<div class="flex flex-col w-full gap-1.5">
     <div class="flex items-center justify-between">
         <p class="text-[16px]">What is your current age<span class="text-red-500">*</span></p>
         <div class="flex items-center gap-4">
             <div
                 class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center">
-                <p>$</p>
-                <input type="numer" class="outline-none w-full" id="currentAge" value="22" onchange="currentAgeSlider.value = this.value"/>
+                <input type="number" min="18" max="59" value="22" class="outline-none w-full" id="currentAge"
+                    oninput="currentAgeSlider.value = this.value; validateAge()" />
+                <p>Yrs</p>
             </div>
-            <p>Yrs</p>
         </div>
     </div>
     <div class="pt-[8px] pb-[8px]">
-        <input type="range" class="w-full" min="18" max="100" value="22" id="currentAgeSlider" oninput="currentAge.value = this.value"/>
+        <input type="range" class="w-full" min="18" max="59" value="22" id="currentAgeSlider"
+            oninput="currentAge.value = this.value;" />
     </div>
     <div class="flex items-center justify-between">
-        <p class="text-[16px]">What is your current age<span class="text-red-500">*</span></p>
+        <p class="text-[16px]">What is your current savings<span class="text-red-500">*</span></p>
         <div class="flex items-center gap-4">
             <div
                 class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center">
+
+                <input type="number" class="outline-none w-full" minlength="0" maxlength="100000" id="currentSave" value="0"
+                    oninput="currentSaveSlider.value = this.value" />
                 <p>$</p>
-                <input type="numer" class="outline-none w-full" id="currentAge" value="22" onchange="currentAgeSlider.value = this.value"/>
             </div>
-            <p>Yrs</p>
         </div>
     </div>
     <div class="pt-[8px] pb-[8px]">
-        <input type="range" class="w-full" min="18" max="100" value="22" id="currentAgeSlider" oninput="currentAge.value = this.value"/>
+        <input type="range" class="w-full" min="0" max="100000" value="1000" id="currentSaveSlider"
+            oninput="currentSave.value = this.value" />
     </div>
     <div class="flex items-center justify-between">
-        <p class="text-[16px]">What is your current age<span class="text-red-500">*</span></p>
+        <p class="text-[16px]">What is your monthly contribution<span class="text-red-500">*</span></p>
         <div class="flex items-center gap-4">
             <div
                 class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center">
+                <input type="number" class="outline-none w-full" minlength="0" maxlength="100000" id="monthlSave" value="0"
+                    oninput="monthlSaveSlider.value = this.value" />
                 <p>$</p>
-                <input type="numer" class="outline-none w-full" id="currentAge" value="22" onchange="currentAgeSlider.value = this.value"/>
             </div>
-            <p>Yrs</p>
         </div>
     </div>
     <div class="pt-[8px] pb-[8px]">
-        <input type="range" class="w-full" min="18" max="100" value="22" id="currentAgeSlider" oninput="currentAge.value = this.value"/>
+        <input type="range" class="w-full" min="0" max="100000" value="1000" id="monthlSaveSlider"
+            oninput="monthlSave.value = this.value" />
     </div>
     <div class="flex items-center justify-between">
-        <p class="text-[16px]">What is your current age<span class="text-red-500">*</span></p>
+        <p class="text-[16px]">What is your target retirement age<span class="text-red-500">*</span></p>
         <div class="flex items-center gap-4">
             <div
                 class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center">
-                <p>$</p>
-                <input type="numer" class="outline-none w-full" id="currentAge" value="22" onchange="currentAgeSlider.value = this.value"/>
+                <input type="number" min="18" max="59" value="22" class="outline-none w-full" id="targetAge"
+                    oninput="targetAgeSlider.value = this.value;" />
+                <p>Yrs</p>
             </div>
-            <p>Yrs</p>
         </div>
     </div>
     <div class="pt-[8px] pb-[8px]">
-        <input type="range" class="w-full" min="18" max="100" value="22" id="currentAgeSlider" oninput="currentAge.value = this.value"/>
+        <input type="range" class="w-full" min="18" max="59" value="22" id="targetAgeSlider"
+            oninput="targetAge.value = this.value;" />
     </div>
     <div class="flex items-center justify-between">
-        <p class="text-[16px]">What is your current age<span class="text-red-500">*</span></p>
+        <p class="text-[16px]">What is your target retirement savings<span class="text-red-500">*</span></p>
         <div class="flex items-center gap-4">
             <div
                 class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center">
+
+                <input type="number" class="outline-none w-full" minlength="0" maxlength="100000" id="targetSave" value="0"
+                    oninput="targetSaveSlider.value = this.value" />
                 <p>$</p>
-                <input type="numer" class="outline-none w-full" id="currentAge" value="22" onchange="currentAgeSlider.value = this.value"/>
             </div>
-            <p>Yrs</p>
         </div>
     </div>
     <div class="pt-[8px] pb-[8px]">
-        <input type="range" class="w-full" min="18" max="100" value="22" id="currentAgeSlider" oninput="currentAge.value = this.value"/>
+        <input type="range" class="w-full" min="0" max="100000" value="1000" id="targetSaveSlider"
+            oninput="targetSave.value = this.value" />
+    </div>
+    <div class="flex items-center justify-between">
+        <p class="text-[16px]">What is expected return rate<span class="text-red-500">*</span></p>
+        <div class="flex items-center gap-4">
+            <div
+                class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center">
+
+                <input type="number" class="outline-none w-full" minlength="0" maxlength="100000" id="interestRate" value="8"
+                    oninput="interestRate.value = this.value" />
+                <p>%</p>
+            </div>
+        </div>
+    </div>
+    <div class="pt-[8px] pb-[8px]">
+        <input type="range" class="w-full" min="1" max="100" value="8" id="interestRateSlider"
+            oninput="interestRate.value = this.value" />
     </div>
 </div>
