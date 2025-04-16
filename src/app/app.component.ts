@@ -10,7 +10,7 @@ import { CreatedGoalComponent } from "./created-goal/created-goal.component";
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [HeaderComponent, SearchComponent, FormComponent, MonthlyContribComponent, ButtonComponent, CreatedGoalComponent]
+  imports: [HeaderComponent, SearchComponent, FormComponent, MonthlyContribComponent, ButtonComponent]
 })
 export class AppComponent {
   title = 'myapp';
