@@ -1,4 +1,4 @@
-<form [formGroup]="retirementForm">
+<form [formGroup]="retirementForm" class="h-full">
     <div class="flex justify-between flex-col w-full h-full gap-1.5 p-[24px] border-solid border-[#E8E8E8] border-[1px] rounded-[16px] divide-[red]">
         <!-- Current Age -->
         <div class="flex items-center justify-between">
@@ -21,7 +21,7 @@
             <input type="range" class="w-full" min="18" max="60" value="22" id="currentAgeSlider"
                 (input)="updateInput('currentAge', $event)" />
         </div>
-
+  
         <!-- Current Savings -->
         <div class="flex items-center justify-between">
             <div>

@@ -1,15 +1,25 @@
-<div class="p-4 h-full w-full">
-    <app-header></app-header>
+<app-header></app-header>
+<div class="h-full flex flex-col p-2">
+
     <app-search></app-search>
-    <div class="flex flex-row w-full gap-6 pt-2 h-full max-sm:flex-col">
-        <app-form class="w-full"></app-form>
-        <app-monthly-contrib class="w-full"></app-monthly-contrib>
+
+    <div class="flex flex-row w-full gap-6 pt-2 flex-1 max-sm:flex-col">
+        <app-form class="w-full h-full"></app-form>
+        <div class="flex flex-col w-full gap-4">
+            <app-monthly-contrib class="w-full h-full"></app-monthly-contrib>
+            <app-adjustment class="w-full h-full"></app-adjustment>
+            <app-chart class="h-full"></app-chart>
+        </div>
+
     </div>
-    <div class="flex justify-center pt-[10px] pb-[10px]">
+
+    <!-- Save button, separated and placed at bottom -->
+    <div class="flex justify-center pt-[10px] pb-[10px] mt-auto">
         <app-button [isSave]="true" [isEdit]="false" [isUpdate]="false" class="p-1"></app-button>
     </div>
 </div>
+
 <!-- <app-created-goal [data]="id"></app-created-goal> -->
 <!-- <app-no-user></app-no-user> -->
- <!-- <app-updated-goal></app-updated-goal> -->
+<!-- <app-updated-goal></app-updated-goal> -->
 <!-- <app-form></app-form> -->
