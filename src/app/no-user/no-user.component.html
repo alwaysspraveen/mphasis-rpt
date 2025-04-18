@@ -1,1 +1,16 @@
-<p>no-user works!</p>
+<div *ngIf="notFound" class="absolute top-0 bottom-0 left-0 right-0 bg-[#00000050] justify-center flex items-center">
+    <div class="h-fit w-[400px] rounded-[12px] bg-white p-[24px] flex flex-col items-center justify-start gap-[16px]">
+        <iframe class="h-[120px]"
+            src="https://lottie.host/embed/f6f9b091-8bee-499c-a70c-91f865eed7ab/6N2gvcxHws.lottie"></iframe>
+        <div class="flex flex-col gap-4">
+            <div class="text-center flex flex-col gap-[8px]">
+                <p class="text-[24px] font-medium text-[#101828] ">User not found</p>
+
+                <p class="text-[14px] regularext text-[#667085]">The user could not be found. Please check the user ID
+                    and try again.</p>
+            </div>
+            <app-pop-btn class="w-full" [value]="update"></app-pop-btn>
+
+        </div>
+    </div>
+</div>

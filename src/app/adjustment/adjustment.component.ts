@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-adjustment',
@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './adjustment.component.css'
 })
 export class AdjustmentComponent {
-  @Input() onTrack: boolean=false;
+  onTrack=true;
 }
