@@ -11,10 +11,10 @@ export class RetirementChartComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     const ctx = document.getElementById('retirementChart') as HTMLCanvasElement;
 
-    const currentAge = 25;
+    const currentAge = 22;
     const retirementAge = 60;
     const currentSavings = 200000;
-    const targetCorpus = 16000000; // ₹1.6 Cr
+    const targetCorpus = 13000000; // ₹1.6 Cr
 
     const annualContribution = 200000;
     const rate = 0.06;
@@ -62,6 +62,7 @@ export class RetirementChartComponent implements AfterViewInit {
         scales: {
           y: {
             beginAtZero: true,
+            suggestedMax: targetCorpus * 1.1, // adds 10% headroom
             ticks: {
               callback: function (tickValue: string | number) {
                 const value = typeof tickValue === 'number' ? tickValue : parseFloat(tickValue);
@@ -82,7 +83,7 @@ export class RetirementChartComponent implements AfterViewInit {
             }
           }
         }
-      }
+      }      
     });
   }
 }
