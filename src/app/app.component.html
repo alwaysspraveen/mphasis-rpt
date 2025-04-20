@@ -1,10 +1,10 @@
 <app-header></app-header>
-<div class="h-full flex flex-col p-2">
+<div class="h-full flex flex-col p-4">
 
     <app-search></app-search>
 
     <div class="flex flex-row w-full gap-6 pt-2 flex-1 max-sm:flex-col">
-        <app-form class="w-full h-full"></app-form>
+        <app-form class="w-[1400px] h-full max-md:w-full"></app-form>
         <div class="flex flex-col w-full h-full gap-[20px]">
             <app-monthly-contrib (recommendedSaveEmitter)="onRecommendedSaveChange($event)"></app-monthly-contrib>
             <app-adjustment 

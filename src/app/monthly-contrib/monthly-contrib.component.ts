@@ -14,6 +14,8 @@ export class MonthlyContribComponent implements OnInit {
   animatedRecommendedValue: number = 0;
   animatedActualValue: number = 0;
   recommendedMonthlySave: number = 0;
+  animatedTotalSavings:number = 0;
+  expectedTotalSavings : number = 0;
   monthlySave: number = 0;
 
   @Input() id = this.recommendedMonthlySave
@@ -46,6 +48,11 @@ export class MonthlyContribComponent implements OnInit {
 
     this.monthlySave = monthlySave;
 
+    this.expectedTotalSavings = currentSavings * Math.pow(1 + monthlyRate, totalMonths) +
+    monthlySave * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate);
+
+
+    this.animateValue(this.expectedTotalSavings, (val) => this.animatedTotalSavings = val)
     this.animateValue(this.recommendedMonthlySave, (val) => this.animatedRecommendedValue = val);
     this.animateValue(this.monthlySave, (val) => this.animatedActualValue = val);
 
