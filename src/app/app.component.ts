@@ -35,7 +35,6 @@ export class AppComponent {
   checkOnTrack() {
     this.onTrack = this.targetValue >= this.recommendedMonthlySave;
   }
-
   onTrackStatusChange(status: boolean) {
     this.onTrack = status;
   }
