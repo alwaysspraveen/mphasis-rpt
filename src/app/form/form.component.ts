@@ -5,9 +5,11 @@ import {
   FormGroup,
   ReactiveFormsModule,
   Validators,
+  ValidationErrors,
+  AbstractControl,
 } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { RetirementDataService } from '../retirement-form.service'; // Make sure the path is correct
+import { RetirementDataService } from '../retirement-form.service';
 
 @Component({
   selector: 'app-form',
@@ -17,49 +19,51 @@ import { RetirementDataService } from '../retirement-form.service'; // Make sure
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  retirementForm: FormGroup = new FormGroup({
-    currentAge: new FormControl('18', [
-      Validators.required,
-      Validators.min(18),
-      Validators.max(60),
-    ]),
-    currentSave: new FormControl('0', [
-      Validators.required,
-      Validators.min(0),
-      Validators.max(100000),
-    ]),
-    monthlSave: new FormControl('0', [
-      Validators.required,
-      Validators.min(0),
-      Validators.max(10000),
-    ]),
-    targetAge: new FormControl('18', [
-      Validators.required,
-      Validators.min(18),
-      Validators.max(60),
-    ]),
-    targetSave: new FormControl('0', [
-      Validators.required,
-      Validators.min(0),
-      Validators.max(1000000),
-    ]),
-  });
+  retirementForm: FormGroup;
 
-  constructor(private dataService: RetirementDataService) {}
+  constructor(private dataService: RetirementDataService) {
+    this.retirementForm = new FormGroup(
+      {
+        currentAge: new FormControl('18', [
+          Validators.required,
+          Validators.min(18),
+          Validators.max(60),
+        ]),
+        currentSave: new FormControl('0', [
+          Validators.required,
+          Validators.min(0),
+          Validators.max(100000),
+        ]),
+        monthlSave: new FormControl('0', [
+          Validators.required,
+          Validators.min(0),
+          Validators.max(10000),
+        ]),
+        targetAge: new FormControl('35', [
+          Validators.required,
+          Validators.min(18),
+          Validators.max(60),
+        ]),
+        targetSave: new FormControl('0', [
+          Validators.required,
+          Validators.min(0),
+          Validators.max(1000000),
+        ]),
+      },
+      { validators: this.targetAgeGreaterThanCurrentAge }
+    );
+  }
 
   ngOnInit(): void {
     this.retirementForm.markAllAsTouched();
 
-    // Send data to service in real-time
-    this.retirementForm.valueChanges
-      .pipe(debounceTime(300)) // Optional: debounce to avoid flooding
-      .subscribe((values) => {
-        if (this.retirementForm.valid) {
-          this.dataService.updateFormData(values);
-        } else {
-          this.dataService.updateFormData(null);
-        }
-      });
+    this.retirementForm.valueChanges.pipe(debounceTime(300)).subscribe((values) => {
+      if (this.retirementForm.valid) {
+        this.dataService.updateFormData(values);
+      } else {
+        this.dataService.updateFormData(null);
+      }
+    });
   }
 
   hasError(controlName: string, errorType: string): boolean {
@@ -68,6 +72,10 @@ export class FormComponent implements OnInit {
 
     if (errorType === 'required') {
       return control.hasError('required');
+    }
+
+    if (controlName === 'targetAge' && errorType === 'targetAgeLessThanCurrentAge') {
+      return this.retirementForm.hasError('targetAgeLessThanCurrentAge');
     }
 
     return (control.touched || control.dirty) && control.hasError(errorType);
@@ -83,9 +91,7 @@ export class FormComponent implements OnInit {
     };
 
     const value = event.target.value;
-    const slider = document.getElementById(
-      sliders[controlName as keyof typeof sliders]
-    ) as HTMLInputElement;
+    const slider = document.getElementById(sliders[controlName as keyof typeof sliders]) as HTMLInputElement;
     if (slider) {
       slider.value = value;
     }
@@ -105,41 +111,41 @@ export class FormComponent implements OnInit {
     }
 
     if (controlName === 'currentAge' || controlName === 'targetAge') {
-      if (control?.hasError('min')) {
-        return 'Age should not be less than 18';
-      }
-      if (control?.hasError('max')) {
-        return 'Age should not be more than 60';
-      }
+      if (control?.hasError('min')) return 'Age should not be less than 18';
+      if (control?.hasError('max')) return 'Age should not be more than 60';
     }
 
     if (controlName === 'currentSave') {
-      if (control?.hasError('min')) {
-        return 'Savings should not be less than 0';
-      }
-      if (control?.hasError('max')) {
-        return 'Savings should not exceed $100,000';
-      }
+      if (control?.hasError('min')) return 'Savings should not be less than 0';
+      if (control?.hasError('max')) return 'Savings should not exceed $100,000';
     }
 
     if (controlName === 'monthlSave') {
-      if (control?.hasError('min')) {
-        return 'Monthly contribution should not be less than 0';
-      }
-      if (control?.hasError('max')) {
-        return 'Monthly contribution should not exceed $10,000';
-      }
+      if (control?.hasError('min')) return 'Monthly contribution should not be less than 0';
+      if (control?.hasError('max')) return 'Monthly contribution should not exceed $10,000';
     }
 
     if (controlName === 'targetSave') {
-      if (control?.hasError('min')) {
-        return 'Target savings should not be less than 0';
-      }
-      if (control?.hasError('max')) {
-        return 'Target savings should not exceed $1,000,000';
-      }
+      if (control?.hasError('min')) return 'Target savings should not be less than 0';
+      if (control?.hasError('max')) return 'Target savings should not exceed $1,000,000';
+    }
+
+    if (controlName === 'targetAge' && this.retirementForm.hasError('targetAgeLessThanCurrentAge')) {
+      return 'Target age must be greater than current age';
     }
 
     return '';
+  }
+
+  // ✅ Custom validator: Target age must be greater than current age
+  targetAgeGreaterThanCurrentAge(group: AbstractControl): ValidationErrors | null {
+    const currentAge = group.get('currentAge')?.value;
+    const targetAge = group.get('targetAge')?.value;
+
+    if (currentAge && targetAge && parseInt(targetAge) <= parseInt(currentAge)) {
+      return { targetAgeLessThanCurrentAge: true };
+    }
+
+    return null;
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-adjustment',
@@ -8,5 +8,21 @@ import { Component } from '@angular/core';
   styleUrl: './adjustment.component.css'
 })
 export class AdjustmentComponent {
-  onTrack=true;
+  recommendedMonthlySave: number = 0;
+  monthlySave: number = 0;
+  
+  onRecommendedSaveChange([recommendedMonthlySave, monthlySave]: [number, number]) {
+    this.recommendedMonthlySave = recommendedMonthlySave;
+    
+  }
+
+
+  @Output() trackStatusEmitter = new EventEmitter<boolean>();
+  @Input() recommendedMonthly: number = 0;
+  @Input() onTrack: boolean = true; // Show/hide message based on this
+  toggleTrackStatus() {
+
+    this.onTrack = !this.onTrack;
+    this.trackStatusEmitter.emit(this.onTrack);  // Emit the status to parent
+  }
 }

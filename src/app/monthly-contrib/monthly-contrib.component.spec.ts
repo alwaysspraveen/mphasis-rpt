@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MonthlyContribComponent } from './monthly-contrib.component';
-import { FormsModule } from '@angular/forms';
 
 describe('MonthlyContribComponent', () => {
   let component: MonthlyContribComponent;
@@ -21,19 +19,28 @@ describe('MonthlyContribComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render current and expected monthly savings', () => {
-    component.formData = { monthlSave: 1000 };
+  it('should render initial current and expected monthly savings', () => {
+    component.animatedActualValue = 1000;
+    component.animatedRecommendedValue = 2000;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('p.text-\\[24px\\]')?.textContent).toContain('$1000');
-    expect(compiled.querySelector('p.text-\\[24px\\]:last-of-type')?.textContent).toContain('$0');
+    expect(compiled.querySelectorAll('p.text-\\[24px\\]')[0].textContent).toContain('$1000');
+    expect(compiled.querySelectorAll('p.text-\\[24px\\]')[1].textContent).toContain('$2000');
   });
 
-  it('should render "No Data" when formData is not available', () => {
-    component.formData = null;
+  it('should update displayed values when animated values change', () => {
+    component.animatedActualValue = 1000;
+    component.animatedRecommendedValue = 2000;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('p.text-\\[24px\\]')?.textContent).toContain('$');
+    expect(compiled.querySelectorAll('p.text-\\[24px\\]')[0].textContent).toContain('$1000');
+    expect(compiled.querySelectorAll('p.text-\\[24px\\]')[1].textContent).toContain('$2000');
+
+    component.animatedActualValue = 3000;
+    component.animatedRecommendedValue = 4000;
+    fixture.detectChanges();
+    expect(compiled.querySelectorAll('p.text-\\[24px\\]')[0].textContent).toContain('$3000');
+    expect(compiled.querySelectorAll('p.text-\\[24px\\]')[1].textContent).toContain('$4000');
   });
 
   it('should render images correctly', () => {
@@ -68,14 +75,4 @@ describe('MonthlyContribComponent', () => {
     expect(div1Found).toBe(true);
     expect(div2Found).toBe(true);
   });
-
-  it('should display 0 if monthlSave is 0', () => {
-    component.formData = { monthlSave: 0 };
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('p.text-\\[24px\\]')?.textContent).toContain('$0');
-  });
-
-
-
 });
