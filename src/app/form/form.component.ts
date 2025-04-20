@@ -39,7 +39,7 @@ export class FormComponent implements OnInit {
           Validators.min(0),
           Validators.max(10000),
         ]),
-        targetAge: new FormControl('30', [
+        targetAge: new FormControl('35', [
           Validators.required,
           Validators.min(18),
           Validators.max(60),
