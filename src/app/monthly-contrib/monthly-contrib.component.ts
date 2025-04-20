@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { RetirementDataService } from '../retirement-form.service'; // Ensure the correct path
 
 @Component({
@@ -11,6 +11,7 @@ export class MonthlyContribComponent implements OnInit {
   animatedValue: number = 0; // This will hold the animated value
   monthlySave: any;
   recommendedMonthlySave: any;
+  @Output() recommendedSaveEmitter = new EventEmitter<[number, number]>();
   constructor(private dataService: RetirementDataService) { }
 
   ngOnInit(): void {
@@ -49,6 +50,7 @@ export class MonthlyContribComponent implements OnInit {
     const duration = 800; // Duration of the animation in ms (2 seconds)
     const frameRate = 60; // FPS (frames per second) for the animation
     const increment = targetValue / (duration / (1000 / frameRate)); // Calculate increment value per frame
+
     const interval = setInterval(() => {
       if (currentValue < targetValue) {
         currentValue += increment; // Increase current value
@@ -59,8 +61,7 @@ export class MonthlyContribComponent implements OnInit {
       }
     }, 1000 / frameRate); 
     
-    
-    
+    this.recommendedSaveEmitter.emit([this.recommendedMonthlySave, targetValue]);
     // Set the interval rate based on FPS
   }
 }

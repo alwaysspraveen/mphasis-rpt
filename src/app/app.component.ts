@@ -17,6 +17,26 @@ import { TotalAmountComponent } from "./total-amount/total-amount.component";
 })
 export class AppComponent {
   title = 'myapp';
-  
-id:string = 'RPT100';
+
+  id: string = 'RPT100';
+
+  recommendedMonthlySave: number = 0; // Hold the recommended value from MonthlyContribComponent
+  onTrack: boolean = true;  // Track the onTrack status from AdjustmentComponent
+  targetValue: number = 0; // Monthly savings value (assumed to be input from user or form)
+
+  // Handle the emitted recommended value from MonthlyContribComponent
+  onRecommendedSaveChange([recommendedSave, targetValue]: [number, number]) {
+    this.targetValue = targetValue;
+    this.recommendedMonthlySave = recommendedSave;
+    this.checkOnTrack();
+  }
+
+  checkOnTrack() {
+    this.onTrack = this.targetValue >= this.recommendedMonthlySave;
+  }
+
+  onTrackStatusChange(status: boolean) {
+    this.onTrack = status;
+  }
+
 }

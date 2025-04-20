@@ -5,10 +5,13 @@
     </div>
     <p class="text-[20px] text-[#20A247] font-bold">You're on track to meet your retirement goal</p>
 </div>
+
 <div *ngIf="!onTrack" class="flex flex-col bg-[#F8D7DA] w-full rounded-[16px] p-[22px] gap-4">
     <div class="flex gap-2 items-center">
         <img src="images/down.png" alt="logo" />
         <p class="font-semibold text-[16px] text-[#363636] max-md:text-[14px]">Monthly Adjustment Needed</p>
     </div>
-    <p class="text-[20px] text-[#E63F3F] font-bold max-md:text-[16px]">You need to adjust your monthly contribution to meet your retirement goal</p>
+    <p class="text-[20px] text-[#E63F3F] font-bold max-md:text-[16px]">
+        You need to adjust your monthly contribution to meet your retirement goal
+    </p>
 </div>

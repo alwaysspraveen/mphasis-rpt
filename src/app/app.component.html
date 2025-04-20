@@ -6,8 +6,11 @@
     <div class="flex flex-row w-full gap-6 pt-2 flex-1 max-sm:flex-col">
         <app-form class="w-full h-full"></app-form>
         <div class="flex flex-col w-full h-full gap-[20px]">
-            <app-monthly-contrib></app-monthly-contrib>
-            <app-adjustment></app-adjustment>
+            <app-monthly-contrib (recommendedSaveEmitter)="onRecommendedSaveChange($event)"></app-monthly-contrib>
+            <app-adjustment 
+            [onTrack]="onTrack"
+            (trackStatusEmitter)="onTrackStatusChange($event)">
+          </app-adjustment>
             <!-- <app-total-amount></app-total-amount> -->
             <app-chart class="h-full"></app-chart>
         </div>
