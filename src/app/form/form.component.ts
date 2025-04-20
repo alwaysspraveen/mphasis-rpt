@@ -6,37 +6,70 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
+import { RetirementDataService } from '../retirement-form.service'; // Make sure the path is correct
 
 @Component({
   selector: 'app-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './form.component.html',
-  styleUrl: './form.component.css',
+  styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
   retirementForm: FormGroup = new FormGroup({
-    currentAge: new FormControl('', [Validators.required, Validators.min(18), Validators.max(60)]),
-    currentSave: new FormControl('', [Validators.required, Validators.min(0), Validators.max(100000)]),
-    monthlSave: new FormControl('', [Validators.required, Validators.min(0), Validators.max(10000)]),
-    targetAge: new FormControl('', [Validators.required, Validators.min(18), Validators.max(60)]),
-    targetSave: new FormControl('', [Validators.required, Validators.min(0), Validators.max(1000000)])
+    currentAge: new FormControl('18', [
+      Validators.required,
+      Validators.min(18),
+      Validators.max(60),
+    ]),
+    currentSave: new FormControl('0', [
+      Validators.required,
+      Validators.min(0),
+      Validators.max(100000),
+    ]),
+    monthlSave: new FormControl('0', [
+      Validators.required,
+      Validators.min(0),
+      Validators.max(10000),
+    ]),
+    targetAge: new FormControl('18', [
+      Validators.required,
+      Validators.min(18),
+      Validators.max(60),
+    ]),
+    targetSave: new FormControl('0', [
+      Validators.required,
+      Validators.min(0),
+      Validators.max(1000000),
+    ]),
   });
 
+  constructor(private dataService: RetirementDataService) {}
+
   ngOnInit(): void {
-    this.retirementForm.markAllAsTouched(); // Show validation errors immediately
+    this.retirementForm.markAllAsTouched();
+
+    // Send data to service in real-time
+    this.retirementForm.valueChanges
+      .pipe(debounceTime(300)) // Optional: debounce to avoid flooding
+      .subscribe((values) => {
+        if (this.retirementForm.valid) {
+          this.dataService.updateFormData(values);
+        } else {
+          this.dataService.updateFormData(null);
+        }
+      });
   }
 
   hasError(controlName: string, errorType: string): boolean {
     const control = this.retirementForm.get(controlName);
     if (!control) return false;
 
-    // Always show 'required' errors
     if (errorType === 'required') {
       return control.hasError('required');
     }
 
-    // Show other errors after interaction
     return (control.touched || control.dirty) && control.hasError(errorType);
   }
 
@@ -46,11 +79,13 @@ export class FormComponent implements OnInit {
       currentSave: 'currentSaveSlider',
       monthlSave: 'monthlSaveSlider',
       targetAge: 'targetAgeSlider',
-      targetSave: 'targetSaveSlider'
+      targetSave: 'targetSaveSlider',
     };
 
     const value = event.target.value;
-    const slider = document.getElementById(sliders[controlName as keyof typeof sliders]) as HTMLInputElement;
+    const slider = document.getElementById(
+      sliders[controlName as keyof typeof sliders]
+    ) as HTMLInputElement;
     if (slider) {
       slider.value = value;
     }
