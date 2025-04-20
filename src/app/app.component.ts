@@ -20,6 +20,7 @@ export class AppComponent {
 
   id: string = 'RPT100';
 
+
   recommendedMonthlySave: number = 0; // Hold the recommended value from MonthlyContribComponent
   onTrack: boolean = true;  // Track the onTrack status from AdjustmentComponent
   targetValue: number = 0; // Monthly savings value (assumed to be input from user or form)
@@ -38,5 +39,4 @@ export class AppComponent {
   onTrackStatusChange(status: boolean) {
     this.onTrack = status;
   }
-
 }

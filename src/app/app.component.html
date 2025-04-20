@@ -9,6 +9,7 @@
             <app-monthly-contrib (recommendedSaveEmitter)="onRecommendedSaveChange($event)"></app-monthly-contrib>
             <app-adjustment 
             [onTrack]="onTrack"
+            [recommendedMonthly]="recommendedMonthlySave" 
             (trackStatusEmitter)="onTrackStatusChange($event)">
           </app-adjustment>
             <!-- <app-total-amount></app-total-amount> -->

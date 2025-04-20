@@ -1,8 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output , Pipe} from '@angular/core';
 import { RetirementDataService } from '../retirement-form.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-monthly-contrib',
+  standalone: true, 
+  imports:[CommonModule],
   templateUrl: './monthly-contrib.component.html',
   styleUrls: ['./monthly-contrib.component.css']
 })
@@ -13,6 +16,7 @@ export class MonthlyContribComponent implements OnInit {
   recommendedMonthlySave: number = 0;
   monthlySave: number = 0;
 
+  @Input() id = this.recommendedMonthlySave
   @Output() recommendedSaveEmitter = new EventEmitter<[number, number]>();
 
   constructor(private dataService: RetirementDataService) {}
@@ -46,7 +50,9 @@ export class MonthlyContribComponent implements OnInit {
     this.animateValue(this.monthlySave, (val) => this.animatedActualValue = val);
 
     this.recommendedSaveEmitter.emit([this.recommendedMonthlySave, this.monthlySave]);
+
   }
+
 
   animateValue(target: number, setter: (val: number) => void) {
     let currentValue = 0;
