@@ -13,7 +13,7 @@ import { TotalAmountComponent } from "./total-amount/total-amount.component";
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [HeaderComponent, SearchComponent, FormComponent, MonthlyContribComponent, ButtonComponent, AdjustmentComponent, TotalAmountComponent, ChartComponent]
+  imports: [HeaderComponent, SearchComponent, FormComponent, MonthlyContribComponent, ButtonComponent, AdjustmentComponent, ChartComponent]
 })
 export class AppComponent {
   title = 'myapp';

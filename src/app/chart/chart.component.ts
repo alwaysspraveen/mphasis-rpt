@@ -55,7 +55,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
                           monthlySave * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
     
       const target = targetCorpus / Math.pow(1 + monthlyRate, (retirementAge - age) * 12);
-    
+
       actualSavings.push(Math.round(futureValue));
       targetSavings.push(Math.round(target));
       years.push(`Age ${age}`);
