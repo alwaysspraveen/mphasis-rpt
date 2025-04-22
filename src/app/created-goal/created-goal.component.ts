@@ -8,5 +8,5 @@ import { PopBtnComponent } from "../pop-btn/pop-btn.component";
   styleUrl: './created-goal.component.css'
 })
 export class CreatedGoalComponent {
-@Input() data:string ='';
+@Input() data:string ='Continue';
 }

@@ -7,10 +7,9 @@
         <app-form class="w-[1400px] h-full max-md:w-full "></app-form>
         <div class="flex flex-col w-full h-full gap-[20px]">
             <div class="flex flex-col w-full h-full gap-[20px] p-4 rounded-[14px]" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;">
+                
                 <app-monthly-contrib (recommendedSaveEmitter)="onRecommendedSaveChange($event)"></app-monthly-contrib>
-                <app-adjustment [onTrack]="onTrack" [recommendedMonthly]="recommendedMonthlySave"
-                    (trackStatusEmitter)="onTrackStatusChange($event)">
-                </app-adjustment>
+                <app-adjustment [onTrack]="onTrack" [recommendedMonthly]="recommendedMonthlySave"></app-adjustment>
             </div>
             <!-- <app-total-amount></app-total-amount> -->
             <app-chart class="h-full"></app-chart>
