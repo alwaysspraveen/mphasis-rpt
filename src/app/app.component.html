@@ -4,14 +4,12 @@
     <app-search></app-search>
 
     <div class="flex flex-row w-full gap-6 pt-2 flex-1 max-sm:flex-col">
-        <app-form class="w-[1400px] h-full max-md:w-full"></app-form>
+        <app-form class="w-[1200px] h-full max-md:w-full" (formValidChange)="onFormValidChange($event)"></app-form>
         <div class="flex flex-col w-full h-full gap-[20px]">
             <app-monthly-contrib (recommendedSaveEmitter)="onRecommendedSaveChange($event)"></app-monthly-contrib>
-            <app-adjustment 
-            [onTrack]="onTrack"
-            [recommendedMonthly]="recommendedMonthlySave" 
-            (trackStatusEmitter)="onTrackStatusChange($event)">
-          </app-adjustment>
+            <app-adjustment [onTrack]="onTrack" [recommendedMonthly]="recommendedMonthlySave"
+                (trackStatusEmitter)="onTrackStatusChange($event)">
+            </app-adjustment>
             <!-- <app-total-amount></app-total-amount> -->
             <app-chart class="h-full"></app-chart>
         </div>
@@ -20,9 +18,13 @@
 
     <!-- Save button, separated and placed at bottom -->
     <div class="flex justify-center pt-[10px] pb-[10px] mt-auto">
-        <app-button [isSave]="true" [isEdit]="false" [isUpdate]="false" class="p-1"></app-button>
+        <app-button [isValid]="isValid" [isSave]="true" [isEdit]="false" [isUpdate]="false" class="p-1"></app-button>
+
+
+
     </div>
 </div>
+
 
 <!-- <app-created-goal [data]="id"></app-created-goal> -->
 <!-- <app-no-user></app-no-user> -->

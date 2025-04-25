@@ -17,9 +17,8 @@ import { TotalAmountComponent } from "./total-amount/total-amount.component";
 })
 export class AppComponent {
   title = 'myapp';
-
   id: string = 'RPT100';
-
+ 
 
   recommendedMonthlySave: number = 0; // Hold the recommended value from MonthlyContribComponent
   onTrack: boolean = true;  // Track the onTrack status from AdjustmentComponent
@@ -37,5 +36,16 @@ export class AppComponent {
   }
   onTrackStatusChange(status: boolean) {
     this.onTrack = status;
+  }
+  isValid: boolean = false;
+
+  onFormValidChange(formValid: boolean) {
+    this.isValid = formValid;
+    console.log("Form valid?", formValid); // Debug
+  }
+
+
+  toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
   }
 }

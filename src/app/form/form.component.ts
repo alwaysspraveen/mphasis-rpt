@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -20,6 +20,7 @@ import { RetirementDataService } from '../retirement-form.service';
 })
 export class FormComponent implements OnInit {
   retirementForm: FormGroup;
+  @Output() formValidChange = new EventEmitter<boolean>();
 
   constructor(private dataService: RetirementDataService) {
     this.retirementForm = new FormGroup(
@@ -56,8 +57,10 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.retirementForm.markAllAsTouched();
-
     this.retirementForm.valueChanges.pipe(debounceTime(300)).subscribe((values) => {
+
+      this.formValidChange.emit(this.retirementForm.valid);
+      
       if (this.retirementForm.valid) {
         this.dataService.updateFormData(values);
       } else {
