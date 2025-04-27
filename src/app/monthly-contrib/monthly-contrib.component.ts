@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output , Pipe} from '@angular/core';
 import { RetirementDataService } from '../retirement-form.service';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-monthly-contrib',
   standalone: true, 
-  imports:[CommonModule],
+  imports:[CommonModule, MatTooltipModule],
   templateUrl: './monthly-contrib.component.html',
   styleUrls: ['./monthly-contrib.component.css']
 })

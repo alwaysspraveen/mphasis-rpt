@@ -8,17 +8,23 @@ import { ChartComponent } from "./chart/chart.component";
 import { AdjustmentComponent } from "./adjustment/adjustment.component";
 import { CreatedGoalComponent } from './created-goal/created-goal.component';
 import { NoUserComponent } from './no-user/no-user.component';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { UpdatedGoalComponent } from "./updated-goal/updated-goal.component";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [HeaderComponent, SearchComponent, FormComponent, MonthlyContribComponent, ButtonComponent, AdjustmentComponent, ChartComponent, CreatedGoalComponent, NoUserComponent]
+  imports: [HeaderComponent, SearchComponent, FormComponent, MonthlyContribComponent, ButtonComponent, AdjustmentComponent, ChartComponent, CreatedGoalComponent, NoUserComponent, MatTooltipModule, UpdatedGoalComponent]
 })
+
+
 export class AppComponent {
   title = 'myapp';
   id: string = 'RPT100';
 
+  @NgModule({
+    imports: [MatTooltipModule]
+  })
 
   recommendedMonthlySave: number = 0; // Hold the recommended value from MonthlyContribComponent
   onTrack: boolean = true;  // Track the onTrack status from AdjustmentComponent

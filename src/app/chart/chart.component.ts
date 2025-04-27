@@ -90,6 +90,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false, // 🛑 Important for mobile
         scales: {
           y: {
             beginAtZero: true,
@@ -97,19 +98,34 @@ export class ChartComponent implements OnInit, AfterViewInit {
             ticks: {
               callback: function (tickValue: string | number) {
                 const value = typeof tickValue === 'number' ? tickValue : parseFloat(tickValue);
-                return '₹' + value.toLocaleString();
+                return value.toLocaleString() + ' $';
+              },
+              font: {
+                size: 12 // 📱 Better readable on mobile
+              }
+            }
+          },
+          x: {
+            ticks: {
+              font: {
+                size: 12
               }
             }
           }
         },
         plugins: {
           legend: {
-            display: true
+            display: true,
+            labels: {
+              font: {
+                size: 14
+              }
+            }
           },
           tooltip: {
             callbacks: {
               label: function (context) {
-                return context.dataset.label + ': ₹' + (context.raw as number).toLocaleString();
+                return context.dataset.label + ': $' + (context.raw as number).toLocaleString();
               }
             }
           }

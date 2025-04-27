@@ -1,33 +1,35 @@
 <div class="flex flex-col h-full">
-    <div class="flex w-full gap-[20px]">
-        <div class="flex flex-col bg-[#E6ECFE] w-full rounded-[16px] p-[16px] gap-4">
+    <div class="flex w-full gap-[20px]  max-md:flex max-md:flex-col max-md:justify-center max-md:items-center max-md:gap-[16px]">
+        <div class="flex flex-col bg-[#e5edff] w-full rounded-[16px] p-[16px] gap-4 tooltip-container">
             <div class="flex gap-2 items-center justify-between">
-
-                <p class="text-[#4E4EE0] font-semibold text-[16px] max-md:text-[14px]">Current Monthly Savings</p>
+                <p class="text-[#3a68d3] font-semibold text-[16px] max-md:text-[14px]">Your Current Monthly Savings</p>
+                <span class="tooltip-text">Your total current monthly saving</span>
                 <img src="images/vtr_1.svg" alt="logo" />
             </div>
-            <p class="text-[24px] font-bold text-[#4E4EE0]">
+            <p class="text-[24px] font-bold text-[#3a68d3]">
                 <span>$</span>{{ animatedActualValue | number : '1.0-0' }}
             </p>
         </div>
 
-        <div class="flex flex-col bg-[#CFEDFF] w-full rounded-[16px] p-[16px] gap-4">
+        <div class="flex flex-col bg-[#CFEDFF] w-full rounded-[16px] p-[16px] gap-4 tooltip-container">
             <div class="flex gap-2 items-center justify-between">
 
-                <p class="text-[rgb(52,113,203)] font-semibold text-[16px] max-md:text-[14px]">Expected Monthly Savings
+                <p class="text-[rgb(52,113,203)] font-semibold text-[16px] max-md:text-[14px]">Recommended Monthly Savings
                 </p>
+                <span class="tooltip-text">Total amount that is recommended to contribute per month</span>
                 <img src="images/vtr_2.svg" alt="logo" />
             </div>
             <p class="text-[24px] font-bold text-[rgb(52,113,203)]"><span>$</span>{{ animatedRecommendedValue |
                 number:'1.0-0' }}</p>
         </div>
-        <div class="flex flex-col bg-[#ffd9e0] w-full rounded-[16px] p-[16px] gap-4">
+        <div class="flex flex-col bg-[#d2feff] w-full rounded-[16px] p-[16px] gap-4 tooltip-container">
             <div class="flex gap-2 items-center justify-between">
 
-                <p class="text-[#bb2c46] font-semibold text-[16px] max-md:text-[14px]">Expected Total Savings</p>
+                <p class="text-[#278f91] font-semibold text-[16px] max-md:text-[14px]">Total Retirement Savings</p>
+                <span class="tooltip-text">Total amount that you will get at retirement</span>
                 <img src="images/vtr_3.svg" alt="logo" />
             </div>
-            <p class="text-[24px] font-bold text-[#bb2c46] "><span>$</span>{{ animatedTotalSavings | number:'1.0-0' }}
+            <p class="text-[24px] font-bold text-[#278f91] "><span>$</span>{{ animatedTotalSavings | number:'1.0-0' }}
             </p>
         </div>
     </div>
