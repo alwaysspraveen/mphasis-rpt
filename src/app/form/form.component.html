@@ -1,6 +1,5 @@
 <form [formGroup]="retirementForm" class="h-full">
-    <div
-        class="flex justify-between flex-col w-full h-full gap-4 rounded-[16px] divide-[red]">
+    <div class="flex justify-between flex-col w-full h-full gap-4 rounded-[16px] divide-[red]">
 
         <!-- Current Age -->
         <div class="border-solid border-[#E8E8E8] border-[1px] rounded-[16px] p-4 ">
@@ -21,105 +20,106 @@
                 </div>
             </div>
             <div class="pt-[8px] pb-[8px]">
-                <input type="range" class="w-full" min="18" max="60" value="22" id="currentAgeSlider"
-                    (input)="updateInput('currentAge', $event)" />
+                <input type="range" class="w-full slider" min="18" max="60" value="22" id="currentAgeSlider"
+                    (input)="updateInput('currentAge', $event); onSliderInput($event)" />
             </div>
         </div>
 
 
         <!-- Current Savings -->
         <div class="border-solid border-[#E8E8E8] border-[1px] rounded-[16px] p-4">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-[16px] max-md:text-[14px]">What is your current savings<span
-                        class="text-red-500">*</span></p>
-                <p *ngIf="hasError('currentSave', 'required') || hasError('currentSave', 'min') || hasError('currentSave', 'max')"
-                    class="text-[14px] text-red-500 max-md:text-[12px]">{{ getErrorMessage('currentSave') }}</p>
-            </div>
-            <div class="flex items-center gap-4">
-                <div class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center"
-                    [ngClass]="{'border-red-500': hasError('currentSave', 'required') || hasError('currentSave', 'min') || hasError('currentSave', 'max')}">
-                    <input type="number" formControlName="currentSave" min="0" max="100000" class="outline-none w-full"
-                        id="currentSave" (input)="updateSlider('currentSave', $event)" />
-                    <p>$</p>
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-[16px] max-md:text-[14px]">What is your current savings<span
+                            class="text-red-500">*</span></p>
+                    <p *ngIf="hasError('currentSave', 'required') || hasError('currentSave', 'min') || hasError('currentSave', 'max')"
+                        class="text-[14px] text-red-500 max-md:text-[12px]">{{ getErrorMessage('currentSave') }}</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center"
+                        [ngClass]="{'border-red-500': hasError('currentSave', 'required') || hasError('currentSave', 'min') || hasError('currentSave', 'max')}">
+                        <input type="number" formControlName="currentSave" min="0" max="100000"
+                            class="outline-none w-full" id="currentSave"
+                            (input)="updateSlider('currentSave', $event)" />
+                        <p>$</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="pt-[8px] pb-[8px]">
-            <input type="range" class="w-full" min="0" max="100000" value="0" id="currentSaveSlider"
-                (input)="updateInput('currentSave', $event)" />
-        </div>
-</div>
-
-<div class="border-solid border-[#E8E8E8] border-[1px] rounded-[16px] p-4">
-        <!-- Monthly Contribution -->
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-[16px] max-md:text-[14px]">What is your monthly contribution<span
-                        class="text-red-500">*</span></p>
-                <p *ngIf="hasError('monthlSave', 'required') || hasError('monthlSave', 'min') || hasError('monthlSave', 'max')"
-                    class="text-[14px] text-red-500 max-md:text-[12px]">{{ getErrorMessage('monthlSave') }}</p>
+            <div class="pt-[8px] pb-[8px]">
+                <input type="range" class="w-full slider" min="0" max="100000" value="0" id="currentSaveSlider"
+                    (input)="updateInput('currentSave', $event);onSliderInput($event)">
             </div>
-            <div class="flex items-center gap-4">
-                <div class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center"
-                    [ngClass]="{'border-red-500': hasError('monthlSave', 'required') || hasError('monthlSave', 'min') || hasError('monthlSave', 'max')}">
-                    <input type="number" formControlName="monthlSave" min="0" max="10000" class="outline-none w-full"
-                        id="monthlSave" (input)="updateSlider('monthlSave', $event)" />
-                    <p>$</p>
-                </div>
-            </div>
-        </div>
-        <div class="pt-[8px] pb-[8px]">
-            <input type="range" class="w-full" min="0" max="10000" value="0" id="monthlSaveSlider"
-                (input)="updateInput('monthlSave', $event)" />
-        </div>
-</div>
-<div class="border-solid border-[#E8E8E8] border-[1px] rounded-[16px] p-4">
-        <!-- Target Retirement Age -->
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-[16px] max-md:text-[14px]">What is your target retirement age<span
-                        class="text-red-500">*</span></p>
-                <p *ngIf="hasError('targetAge', 'required') || hasError('targetAge', 'min') || hasError('targetAge', 'max') || hasError('targetAge', 'targetAgeLessThanCurrentAge')"
-                    class="text-[14px] text-red-500 max-md:text-[12px]">{{ getErrorMessage('targetAge') }}</p>
-            </div>
-            <div class="flex items-center gap-4">
-                <div class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center"
-                    [ngClass]="{'border-red-500': hasError('targetAge', 'required') || hasError('targetAge', 'min') || hasError('targetAge', 'max') || hasError('targetAge', 'targetAgeLessThanCurrentAge')}">
-                    <input type="number" formControlName="targetAge" min="18" max="60" class="outline-none w-full"
-                        id="targetAge" (input)="updateSlider('targetAge', $event)" />
-                    <p>Yrs</p>
-                </div>
-            </div>
-        </div>
-        <div class="pt-[8px] pb-[8px]">
-            <input type="range" class="w-full" min="18" max="60" value="22" id="targetAgeSlider"
-                (input)="updateInput('targetAge', $event)" />
         </div>
 
-</div>
-<div class="border-solid border-[#E8E8E8] border-[1px] rounded-[16px] p-4">
-        <!-- Target Retirement Savings -->
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-[16px] max-md:text-[14px]">What is your target retirement savings<span
-                        class="text-red-500">*</span></p>
-                <p *ngIf="hasError('targetSave', 'required') || hasError('targetSave', 'min') || hasError('targetSave', 'max')"
-                    class="text-[14px] text-red-500 max-md:text-[12px]">{{ getErrorMessage('targetSave') }}</p>
-            </div>
-            <div class="flex items-center gap-4">
-                <div class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center"
-                    [ngClass]="{'border-red-500': hasError('targetSave', 'required') || hasError('targetSave', 'min') || hasError('targetSave', 'max')}">
-                    <input type="number" formControlName="targetSave" min="0" max="1000000" class="outline-none w-full"
-                        id="targetSave" (input)="updateSlider('targetSave', $event)" />
-                    <p>$</p>
+        <div class="border-solid border-[#E8E8E8] border-[1px] rounded-[16px] p-4">
+            <!-- Monthly Contribution -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-[16px] max-md:text-[14px]">What is your monthly contribution<span
+                            class="text-red-500">*</span></p>
+                    <p *ngIf="hasError('monthlSave', 'required') || hasError('monthlSave', 'min') || hasError('monthlSave', 'max')"
+                        class="text-[14px] text-red-500 max-md:text-[12px]">{{ getErrorMessage('monthlSave') }}</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center"
+                        [ngClass]="{'border-red-500': hasError('monthlSave', 'required') || hasError('monthlSave', 'min') || hasError('monthlSave', 'max')}">
+                        <input type="number" formControlName="monthlSave" min="0" max="10000"
+                            class="outline-none w-full" id="monthlSave" (input)="updateSlider('monthlSave', $event)" />
+                        <p>$</p>
+                    </div>
                 </div>
             </div>
+            <div class="pt-[8px] pb-[8px]">
+                <input type="range" class="w-full slider" min="0" max="10000" value="0" id="monthlSaveSlider"
+                    (input)="updateInput('monthlSave', $event);onSliderInput($event)" />
+            </div>
         </div>
-        <div class="pt-[8px] pb-[8px]">
-            <input type="range" class="w-full" min="0" max="1000000" value="0" id="targetSaveSlider"
-                (input)="updateInput('targetSave', $event)" />
+        <div class="border-solid border-[#E8E8E8] border-[1px] rounded-[16px] p-4">
+            <!-- Target Retirement Age -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-[16px] max-md:text-[14px]">What is your target retirement age<span
+                            class="text-red-500">*</span></p>
+                    <p *ngIf="hasError('targetAge', 'required') || hasError('targetAge', 'min') || hasError('targetAge', 'max') || hasError('targetAge', 'targetAgeLessThanCurrentAge')"
+                        class="text-[14px] text-red-500 max-md:text-[12px]">{{ getErrorMessage('targetAge') }}</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center"
+                        [ngClass]="{'border-red-500': hasError('targetAge', 'required') || hasError('targetAge', 'min') || hasError('targetAge', 'max') || hasError('targetAge', 'targetAgeLessThanCurrentAge')}">
+                        <input type="number" formControlName="targetAge" min="18" max="60" class="outline-none w-full"
+                            id="targetAge" (input)="updateSlider('targetAge', $event);" />
+                        <p>Yrs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-[8px] pb-[8px]">
+                <input type="range" class="w-full slider" min="18" max="60" value="22" id="targetAgeSlider"
+                    (input)="updateInput('targetAge', $event);onSliderInput($event)" />
+            </div>
+
         </div>
+        <div class="border-solid border-[#E8E8E8] border-[1px] rounded-[16px] p-4">
+            <!-- Target Retirement Savings -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-[16px] max-md:text-[14px]">What is your target retirement savings<span
+                            class="text-red-500">*</span></p>
+                    <p *ngIf="hasError('targetSave', 'required') || hasError('targetSave', 'min') || hasError('targetSave', 'max')"
+                        class="text-[14px] text-red-500 max-md:text-[12px]">{{ getErrorMessage('targetSave') }}</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center h-[44px] w-[124px] rounded-[8px] gap-2 border-[#E8E8E8] border pl-[14px] pr-[14px] pt-[10px] pb-[10px] justify-center"
+                        [ngClass]="{'border-red-500': hasError('targetSave', 'required') || hasError('targetSave', 'min') || hasError('targetSave', 'max')}">
+                        <input type="number" formControlName="targetSave" min="0" max="1000000"
+                            class="outline-none w-full" id="targetSave" (input)="updateSlider('targetSave', $event)" />
+                        <p>$</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-[8px] pb-[8px]">
+                <input type="range" class="w-full slider" min="0" max="1000000" value="0" id="targetSaveSlider"
+                    (input)="updateInput('targetSave', $event);onSliderInput($event)" />
+            </div>
         </div>
     </div>
 </form>

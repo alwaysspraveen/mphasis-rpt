@@ -10,6 +10,7 @@ import { CreatedGoalComponent } from './created-goal/created-goal.component';
 import { NoUserComponent } from './no-user/no-user.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UpdatedGoalComponent } from "./updated-goal/updated-goal.component";
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
