@@ -19,14 +19,15 @@ import { RetirementDataService } from '../retirement-form.service';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit, AfterViewInit {
+ 
   ngAfterViewInit() {
-    // Select all input sliders by class name
     const sliders = document.querySelectorAll<HTMLInputElement>('input.slider');
 
     sliders.forEach(slider => {
+      // When page loads, immediately fill background based on current value
       this.updateSliderBackground(slider);
 
-      // Also bind input listener to each slider
+      // When user moves the thumb, also update background
       slider.addEventListener('input', (event) => {
         this.onSliderInput(event);
       });
@@ -47,7 +48,6 @@ export class FormComponent implements OnInit, AfterViewInit {
 
     slider.style.background = `linear-gradient(to right, #006EFF ${fillPercentage}%, #e1e1e1 ${fillPercentage}%)`;
   }
-
 
   
   retirementForm: FormGroup;
