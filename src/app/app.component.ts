@@ -11,11 +11,13 @@ import { NoUserComponent } from './no-user/no-user.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UpdatedGoalComponent } from "./updated-goal/updated-goal.component";
 import { CommonModule } from '@angular/common';
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [HeaderComponent, SearchComponent, FormComponent, MonthlyContribComponent, ButtonComponent, AdjustmentComponent, ChartComponent, CreatedGoalComponent, NoUserComponent, MatTooltipModule, UpdatedGoalComponent]
+  imports: [RouterOutlet, HeaderComponent, SearchComponent, FormComponent, MonthlyContribComponent, ButtonComponent, AdjustmentComponent, ChartComponent, CreatedGoalComponent, NoUserComponent, MatTooltipModule, UpdatedGoalComponent, DashboardComponent]
 })
 
 

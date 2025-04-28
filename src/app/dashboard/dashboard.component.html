@@ -1,0 +1,44 @@
+<app-header></app-header>
+
+<div class="h-full flex flex-col p-6 gap-4 max-lg:p-3">
+  
+  <!-- Main content -->
+  <div class="flex flex-col lg:flex-row w-full gap-6 rounded-2xl flex-1">
+    
+    <!-- Left Panel -->
+    <div class="flex flex-col w-[80%] gap-4 p-4 rounded-2xl max-lg:w-full"
+         style="box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;">
+      <app-search></app-search>
+      <app-form class="h-full w-full" (formValidChange)="onFormValidChange($event)"></app-form>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="flex flex-col w-full h-full gap-5">
+      
+      <!-- Monthly Contribution + Adjustment -->
+      <div class="flex flex-col p-4 rounded-2xl gap-4"
+           style="box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;">
+        <app-monthly-contrib (recommendedSaveEmitter)="onRecommendedSaveChange($event)"></app-monthly-contrib>
+        <app-adjustment [onTrack]="onTrack" [recommendedMonthly]="recommendedMonthlySave"
+                        (trackStatusEmitter)="onTrackStatusChange($event)">
+        </app-adjustment>
+      </div>
+
+      <!-- Chart -->
+      <app-chart class="h-full w-full"></app-chart>
+
+    </div>
+
+  </div>
+
+  <!-- Save button at bottom -->
+  <div class="flex justify-center pt-2 pb-2 mt-auto">
+    <app-button [isValid]="isValid" [isSave]="true" [isEdit]="false" [isUpdate]="false" class="p-1"></app-button>
+  </div>
+
+</div>
+
+
+<app-created-goal [data]="id"></app-created-goal>
+<!-- <app-no-user></app-no-user> -->
+<!-- <app-updated-goal></app-updated-goal> -->
