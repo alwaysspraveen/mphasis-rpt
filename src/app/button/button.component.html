@@ -1,3 +1,11 @@
-<button *ngIf="isSave" class="w-[220px] h-[40px] bg-[#4E4EE0] rounded-[10px] text-white">Save</button>
-<button *ngIf="isEdit" class="w-[220px] h-[40px] bg-[#E0814E] rounded-[10px] text-white">Edit</button>
-<button *ngIf="isUpdate" class="w-[220px] h-[40px] bg-[#4E4EE0] rounded-[10px] text-white">Save Update</button>
+<button *ngIf="isSave"
+  [disabled]="!isValid"
+  [ngClass]="{
+    'bg-[#2563eb] cursor-pointer': isValid,
+    'bg-gray-400 cursor-not-allowed': !isValid
+  }"
+  class="w-[220px] h-[40px] rounded-[10px] text-white max-lg:w-[120px]">
+  Save
+</button>
+<button *ngIf="isEdit" class="w-[220px] max-lg:w-[120px] h-[40px] bg-[#E0814E] rounded-[10px] text-white">Edit</button>
+<button *ngIf="isUpdate" class="w-[220px] h-[40px] max-lg:w-[120px] bg-[#4E4EE0] rounded-[10px] text-white">Save Update</button>
