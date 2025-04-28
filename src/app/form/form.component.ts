@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -18,14 +18,45 @@ import { RetirementDataService } from '../retirement-form.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, AfterViewInit {
+ 
+  ngAfterViewInit() {
+    const sliders = document.querySelectorAll<HTMLInputElement>('input.slider');
+
+    sliders.forEach(slider => {
+      // When page loads, immediately fill background based on current value
+      this.updateSliderBackground(slider);
+
+      // When user moves the thumb, also update background
+      slider.addEventListener('input', (event) => {
+        this.onSliderInput(event);
+      });
+    });
+  }
+
+  onSliderInput(event: Event) {
+    const slider = event.target as HTMLInputElement;
+    this.updateSliderBackground(slider);
+  }
+
+  updateSliderBackground(slider: HTMLInputElement) {
+    const min = Number(slider.min);
+    const max = Number(slider.max);
+    const value = Number(slider.value);
+
+    const fillPercentage = ((value - min) / (max - min)) * 100;
+
+    slider.style.background = `linear-gradient(to right, #006EFF ${fillPercentage}%, #e1e1e1 ${fillPercentage}%)`;
+  }
+
+  
   retirementForm: FormGroup;
   @Output() formValidChange = new EventEmitter<boolean>();
 
   constructor(private dataService: RetirementDataService) {
     this.retirementForm = new FormGroup(
       {
-        currentAge: new FormControl('18', [
+        currentAge: new FormControl('22', [
           Validators.required,
           Validators.min(18),
           Validators.max(60),
