@@ -9,7 +9,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { RetirementDataService } from '../retirement-form.service';
+import { RetirementFormService } from '../retirement-form.service';
 
 @Component({
   selector: 'app-form',
@@ -19,41 +19,16 @@ import { RetirementDataService } from '../retirement-form.service';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit, AfterViewInit {
- 
-  ngAfterViewInit() {
-    const sliders = document.querySelectorAll<HTMLInputElement>('input.slider');
 
-    sliders.forEach(slider => {
-      // When page loads, immediately fill background based on current value
-      this.updateSliderBackground(slider);
-
-      // When user moves the thumb, also update background
-      slider.addEventListener('input', (event) => {
-        this.onSliderInput(event);
-      });
-    });
-  }
-
-  onSliderInput(event: Event) {
-    const slider = event.target as HTMLInputElement;
-    this.updateSliderBackground(slider);
-  }
-
-  updateSliderBackground(slider: HTMLInputElement) {
-    const min = Number(slider.min);
-    const max = Number(slider.max);
-    const value = Number(slider.value);
-
-    const fillPercentage = ((value - min) / (max - min)) * 100;
-
-    slider.style.background = `linear-gradient(to right, #006EFF ${fillPercentage}%, #e1e1e1 ${fillPercentage}%)`;
-  }
-
-  
   retirementForm: FormGroup;
   @Output() formValidChange = new EventEmitter<boolean>();
+  @Output() formSubmitted = new EventEmitter<string>();
+  isSubmitting = false;
+  submitError: string | null = null;
 
-  constructor(private dataService: RetirementDataService) {
+  constructor(
+    private dataService: RetirementFormService,
+  ) {
     this.retirementForm = new FormGroup(
       {
         currentAge: new FormControl('22', [
@@ -89,15 +64,41 @@ export class FormComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.retirementForm.markAllAsTouched();
     this.retirementForm.valueChanges.pipe(debounceTime(300)).subscribe((values) => {
-
       this.formValidChange.emit(this.retirementForm.valid);
-      
+
       if (this.retirementForm.valid) {
         this.dataService.updateFormData(values);
       } else {
         this.dataService.updateFormData(null);
       }
     });
+  }
+
+  ngAfterViewInit() {
+    const sliders = document.querySelectorAll<HTMLInputElement>('input.slider');
+
+    sliders.forEach(slider => {
+      this.updateSliderBackground(slider);
+
+      slider.addEventListener('input', (event) => {
+        this.onSliderInput(event);
+      });
+    });
+  }
+
+  onSliderInput(event: Event) {
+    const slider = event.target as HTMLInputElement;
+    this.updateSliderBackground(slider);
+  }
+
+  updateSliderBackground(slider: HTMLInputElement) {
+    const min = Number(slider.min);
+    const max = Number(slider.max);
+    const value = Number(slider.value);
+
+    const fillPercentage = ((value - min) / (max - min)) * 100;
+
+    slider.style.background = `linear-gradient(to right, #006EFF ${fillPercentage}%, #e1e1e1 ${fillPercentage}%)`;
   }
 
   hasError(controlName: string, errorType: string): boolean {
@@ -125,9 +126,14 @@ export class FormComponent implements OnInit, AfterViewInit {
     };
 
     const value = event.target.value;
-    const slider = document.getElementById(sliders[controlName as keyof typeof sliders]) as HTMLInputElement;
+    const sliderId = sliders[controlName as keyof typeof sliders];
+    const slider = document.getElementById(sliderId) as HTMLInputElement;
+
     if (slider) {
       slider.value = value;
+
+      // ✅ This updates the blue fill
+      this.updateSliderBackground(slider);
     }
   }
 
@@ -135,8 +141,9 @@ export class FormComponent implements OnInit, AfterViewInit {
     const value = event.target.value;
     this.retirementForm.get(controlName)?.setValue(value);
     this.retirementForm.get(controlName)?.markAsTouched();
-  }
 
+    this.updateSlider(controlName, event); // 👍 This now fully updates slider
+  }
   getErrorMessage(controlName: string): string {
     const control = this.retirementForm.get(controlName);
 
@@ -171,7 +178,6 @@ export class FormComponent implements OnInit, AfterViewInit {
     return '';
   }
 
-  // ✅ Custom validator: Target age must be greater than current age
   targetAgeGreaterThanCurrentAge(group: AbstractControl): ValidationErrors | null {
     const currentAge = group.get('currentAge')?.value;
     const targetAge = group.get('targetAge')?.value;
@@ -181,5 +187,41 @@ export class FormComponent implements OnInit, AfterViewInit {
     }
 
     return null;
+  }
+
+  prepareFormData(): any {
+    const formValues = this.retirementForm.value;
+
+    return {
+      currentAge: Number(formValues.currentAge),
+      retirementAge: Number(formValues.targetAge),
+      currentSavings: Number(formValues.currentSave),
+      targetSavings: Number(formValues.targetSave),
+      monthlyContribution: Number(formValues.monthlSave),
+      createdAt: new Date().toISOString()
+    };
+  }
+  goalId: string = '';
+  public submitForm() {
+    if (this.retirementForm.valid) {
+      const payload = this.prepareFormData();
+
+      this.isSubmitting = true;
+      this.submitError = null;
+
+      this.dataService.saveRetirementGoal(payload).subscribe({
+        next: (response) => {
+          console.log('Goal saved successfully!', response);
+          this.formSubmitted.emit(response.id);
+          this.goalId = response.id
+          this.isSubmitting = false;
+        },
+        error: (error) => {
+          console.error('Error saving goal', error);
+          this.submitError = 'Failed to save goal. Please try again.';
+          this.isSubmitting = false;
+        }
+      });
+    }
   }
 }

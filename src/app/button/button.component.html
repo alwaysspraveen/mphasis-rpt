@@ -1,4 +1,4 @@
-<button *ngIf="isSave"
+<button (click)="onButtonClick()" *ngIf="isSave"
   [disabled]="!isValid"
   [ngClass]="{
     'bg-[#2563eb] cursor-pointer': isValid,

@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, ViewChild } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormComponent } from "../form/form.component";
 import { SearchComponent } from "../search/search.component";
@@ -10,6 +10,7 @@ import { ChartComponent } from '../chart/chart.component';
 import { CreatedGoalComponent } from '../created-goal/created-goal.component';
 import { NoUserComponent } from '../no-user/no-user.component';
 import { UpdatedGoalComponent } from '../updated-goal/updated-goal.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,11 +26,11 @@ export class DashboardComponent {
     imports: [MatTooltipModule]
   })
 
-  recommendedMonthlySave: number = 0; // Hold the recommended value from MonthlyContribComponent
-  onTrack: boolean = true;  // Track the onTrack status from AdjustmentComponent
-  targetValue: number = 0; // Monthly savings value (assumed to be input from user or form)
-
-  // Handle the emitted recommended value from MonthlyContribComponent
+  recommendedMonthlySave: number = 0;
+  onTrack: boolean = true; 
+  targetValue: number = 0; 
+  goal = false
+  
   onRecommendedSaveChange([recommendedSave, targetValue]: [number, number]) {
     this.targetValue = targetValue;
     this.recommendedMonthlySave = recommendedSave;
@@ -49,4 +50,40 @@ export class DashboardComponent {
     console.log("Form valid?", formValid); // Debug
   }
 
+  @ViewChild(FormComponent) formComponent!: FormComponent;
+
+  callSubmitFromParent() {
+    this.formComponent.submitForm();
+  }
+
+  handleAction(action: string) {
+    switch (action) {
+      case 'save':
+        this.callSubmitFromParent();
+        break;
+      case 'edit':
+        this.edit();
+        break;
+      case 'update':
+        this.update();
+        break;
+      default:
+        break;
+    }
+  }
+  update() {
+    throw new Error('Method not implemented.');
+  }
+  edit() {
+    throw new Error('Method not implemented.');
+  }
+
+  goalId: string = '';  // Variable to hold the received goal ID
+  showID:boolean=false;
+  
+  handleFormSubmitted(goalId: string) {
+    this.goalId = goalId;  // Store the goal ID
+    this.showID=true
+    console.log('Goal ID received in parent:', goalId);
+  }
 }

@@ -13,11 +13,12 @@ import emailjs from '@emailjs/browser';
 })
 export class CreatedGoalComponent {
 
-  goal: boolean = true;
+
   close() {
     // Suggested code may be subject to a license. Learn more: ~LicenseLog:2040947296.
     this.goal = !this.goal;
   }
+  @Input() goal: boolean = true;
   @Input() data: string = '';
   userEmail: string = '';
   emailErrorMessage: string = '';
@@ -33,7 +34,8 @@ export class CreatedGoalComponent {
       this.emailErrorMessage = '';
     }
   }
-
+  sentAlert: boolean = false
+  failAlert: boolean = false
   sendEmail() {
     const templateParams = {
       user_Email: this.userEmail,
@@ -48,10 +50,10 @@ export class CreatedGoalComponent {
     )
       .then((response) => {
         console.log('SUCCESS!', response.status, response.text);
-        alert("Email sent successfully!");
+        this.sentAlert = true;
       }, (error) => {
         console.log('FAILED...', error);
-        alert("Failed to send email. Please try again later.");
+        this.failAlert = true
       });
   }
 }

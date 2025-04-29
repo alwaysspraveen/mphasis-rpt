@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RetirementDataService } from './retirement-form.service';
+import { RetirementFormService } from './retirement-form.service';
 
 describe('RetirementFormService', () => {
-  let service: RetirementDataService;
+  let service: RetirementFormService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RetirementDataService);
+    service = TestBed.inject(RetirementFormService);
   });
 
   it('should be created', () => {

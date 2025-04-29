@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Chart } from 'chart.js/auto';
-import { RetirementDataService } from '../retirement-form.service';
+import { RetirementFormService } from '../retirement-form.service';
 
 @Component({
   selector: 'app-chart',
@@ -12,7 +12,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   chart: Chart | undefined;
   isViewInitialized = false;
 
-  constructor(private dataService: RetirementDataService) {}
+  constructor(private dataService: RetirementFormService) {}
 
   ngAfterViewInit(): void {
     this.isViewInitialized = true;
@@ -31,10 +31,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
     });
   }
 
+  
   updateChart() {
     const ctx = document.getElementById('retirementChart') as HTMLCanvasElement;
     if (!ctx) return;
 
+    
     const currentAge = this.formData?.currentAge || 18;
     const retirementAge = this.formData?.targetAge || 60;
     const currentSavings = this.formData?.currentSave || 0;

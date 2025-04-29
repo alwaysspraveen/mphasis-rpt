@@ -1,23 +1,11 @@
 import { Component, NgModule } from '@angular/core';
-import { HeaderComponent } from "./header/header.component";
-import { SearchComponent } from "./search/search.component";
-import { FormComponent } from "./form/form.component";
-import { MonthlyContribComponent } from "./monthly-contrib/monthly-contrib.component";
-import { ButtonComponent } from "./button/button.component";
-import { ChartComponent } from "./chart/chart.component";
-import { AdjustmentComponent } from "./adjustment/adjustment.component";
-import { CreatedGoalComponent } from './created-goal/created-goal.component';
-import { NoUserComponent } from './no-user/no-user.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { UpdatedGoalComponent } from "./updated-goal/updated-goal.component";
-import { CommonModule } from '@angular/common';
-import { DashboardComponent } from "./dashboard/dashboard.component";
 import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterOutlet, HeaderComponent, SearchComponent, FormComponent, MonthlyContribComponent, ButtonComponent, AdjustmentComponent, ChartComponent, CreatedGoalComponent, NoUserComponent, MatTooltipModule, UpdatedGoalComponent, DashboardComponent]
+  imports: [RouterOutlet, MatTooltipModule]
 })
 
 
