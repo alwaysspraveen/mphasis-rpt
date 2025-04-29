@@ -72,7 +72,7 @@ export class MonthlyContribComponent implements OnInit {
         this.recommendedSaveEmitter.emit([this.recommendedMonthlySave, this.monthlySave]);
       },
       error: (error) => {
-        console.error('Error saving goal', error);
+        console.error('Error goal', error);
       }
     });
   }
