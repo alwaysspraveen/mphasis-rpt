@@ -1,7 +1,8 @@
 <div *ngIf="goal"
   class="fixed inset-0 z-50 flex items-center justify-center bg-[#00000080] bg-opacity-50 overflow-hidden">
-<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:826927235. -->
-  <div class="animate-fade-in-scale h-fit w-[400px] rounded-[12px] bg-white p-[24px] flex flex-col items-center justify-start gap-[16px] max-md:gap-[8px] max-md:w-[300px] max-md:h-auto">
+  <!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:826927235. -->
+  <div
+    class="animate-fade-in-scale h-fit w-[400px] rounded-[12px] bg-white p-[24px] flex flex-col items-center justify-start gap-[16px] max-md:gap-[8px] max-md:w-[300px] max-md:h-auto">
 
     <dotlottie-player src="https://lottie.host/5dc1b8b5-8850-4709-9485-e6fccd5ef2b4/Xzu5ePxuZk.lottie"
       background="transparent" speed="1" style="width: 120px; height: 120px;" autoplay></dotlottie-player>
@@ -28,12 +29,18 @@
         {{ emailErrorMessage }}
       </div>
     </div>
-
+    <div *ngIf="sentAlert" class="flex justify-center items-center"><dotlottie-player
+        src="https://lottie.host/5dc1b8b5-8850-4709-9485-e6fccd5ef2b4/Xzu5ePxuZk.lottie" background="transparent"
+        speed="1" style="width: 30px; height: 30px;" autoplay></dotlottie-player>
+      <p class="text-green-500 text-[14px] text-center">Email sent successfully</p>
+    </div>
+    <div *ngIf="failAlert" class="flex justify-center items-center">
+    <p class="text-red-500 text-center text-[14px]">Failed to send the mail, Please try again later</p>
+  </div>
     <div class="action-buttons w-full flex gap-2">
       <button (click)="close()" class="text-white p-2 w-full rounded-[8px] bg-[#cf1515] max-md:text-[12px]">
         No, Thanks
       </button>
-
       <button class="cursor-pointer" (click)="sendEmail()" [disabled]="emailErrorMessage || !userEmail" [ngClass]="{
         'bg-[#4E4EE0]': !emailErrorMessage && userEmail,
         'bg-[#A6A6A6] cursor-not-allowed opacity-60': emailErrorMessage || !userEmail

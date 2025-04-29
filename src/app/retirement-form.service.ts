@@ -21,4 +21,9 @@ export class RetirementFormService {
   saveRetirementGoal(payload: any): Observable<any> {
     return this.http.post('http://localhost:5177/api/RetirementGoal', payload);
   }
+
+  calculateMonthly(payload: any):Observable<any>{
+    return this.http.post("http://localhost:5177/api/monthlysavings", payload)
+  }
+
 }

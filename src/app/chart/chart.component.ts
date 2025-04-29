@@ -31,10 +31,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
     });
   }
 
+  
   updateChart() {
     const ctx = document.getElementById('retirementChart') as HTMLCanvasElement;
     if (!ctx) return;
 
+    
     const currentAge = this.formData?.currentAge || 18;
     const retirementAge = this.formData?.targetAge || 60;
     const currentSavings = this.formData?.currentSave || 0;
