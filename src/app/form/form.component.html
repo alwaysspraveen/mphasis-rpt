@@ -122,4 +122,11 @@
             </div>
         </div>
     </div>
+    <button (click)="submitForm()" [disabled]="!retirementForm.valid || isSubmitting">
+        Save Goal
+      </button>
+      
+      <div *ngIf="submitError" class="error-message">
+        {{ submitError }}
+      </div>
 </form>

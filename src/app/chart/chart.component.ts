@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Chart } from 'chart.js/auto';
-import { RetirementDataService } from '../retirement-form.service';
+import { RetirementFormService } from '../retirement-form.service';
 
 @Component({
   selector: 'app-chart',
@@ -12,7 +12,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   chart: Chart | undefined;
   isViewInitialized = false;
 
-  constructor(private dataService: RetirementDataService) {}
+  constructor(private dataService: RetirementFormService) {}
 
   ngAfterViewInit(): void {
     this.isViewInitialized = true;

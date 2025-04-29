@@ -10,6 +10,7 @@ import { ChartComponent } from '../chart/chart.component';
 import { CreatedGoalComponent } from '../created-goal/created-goal.component';
 import { NoUserComponent } from '../no-user/no-user.component';
 import { UpdatedGoalComponent } from '../updated-goal/updated-goal.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',

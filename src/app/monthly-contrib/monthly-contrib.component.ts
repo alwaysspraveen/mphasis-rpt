@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output , Pipe} from '@angular/core';
-import { RetirementDataService } from '../retirement-form.service';
+import { RetirementFormService } from '../retirement-form.service';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -22,7 +22,7 @@ export class MonthlyContribComponent implements OnInit {
   @Input() id = this.recommendedMonthlySave
   @Output() recommendedSaveEmitter = new EventEmitter<[number, number]>();
 
-  constructor(private dataService: RetirementDataService) {}
+  constructor(private dataService: RetirementFormService) {}
 
   ngOnInit(): void {
     this.dataService.formData$.subscribe(data => {

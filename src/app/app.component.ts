@@ -17,7 +17,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterOutlet, HeaderComponent, SearchComponent, FormComponent, MonthlyContribComponent, ButtonComponent, AdjustmentComponent, ChartComponent, CreatedGoalComponent, NoUserComponent, MatTooltipModule, UpdatedGoalComponent, DashboardComponent]
+  imports: [RouterOutlet, HeaderComponent, SearchComponent, MonthlyContribComponent, ButtonComponent, AdjustmentComponent, ChartComponent, CreatedGoalComponent, NoUserComponent, MatTooltipModule, UpdatedGoalComponent, DashboardComponent]
 })
 
 
