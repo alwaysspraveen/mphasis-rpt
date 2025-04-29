@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+
+*{
+    font-family: "Poppins", sans-serif;
+  
+}
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  @keyframes fadeInScale {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .animate-fade-in-scale {
+    animation: fadeInScale 0.1s ease-out forwards;
+  }
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: #333333d5;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 1;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
